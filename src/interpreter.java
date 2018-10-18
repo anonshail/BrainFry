@@ -4,6 +4,22 @@ import java.lang.*;
 class errorcheck{
 	//this class handles checking of syntax errors in the code
 	
+	//data members
+	boolean allownonchar;	//flag to allow other characters or not
+	
+	
+	
+	//member methods
+	public errorcheck(){
+		//default constructor
+		allownonchar=true;
+	}
+	
+	public errorcheck(boolean flag){
+		//parameterised constructor
+		allownonchar=flag;
+	}
+	
 	public void loopcheck(String code){
 		//this function checks if the loops are opened and closed correctly
 		//it will display and error and exit if the loops aren't balanced
@@ -12,11 +28,61 @@ class errorcheck{
 		//l must be 0 at the start and end of the code
 		//if l dips below zero or is non zero at the end of the code, loops are unbalanced
 		
-		
-		
+		for(int i=0; i<code.length(); i++){
+			if(code.charAt(i)=='[')
+				l++;
+			else if(code.charAt(i)==']')
+				l--;
+			
+			if(l<0){
+				System.out.println("Loops unbalanced. Check character no : " + i);
+				System.out.println("Terminating. . .");
+				System.exit(-1);
+			}
+			
+		}
 	}
 	
+	public void charcheck(String code){
+		//this function checks if only legal characters or whitespaces are present
+		if(allownonchar)
+			;
+		else {
+			for(int i=0; i<code.length(); i++){
+				switch(code.charAt(i)) {
+					case ' ':
+						break;
+					case '\t':
+						break;
+					case '>':
+						break;
+					case '<':
+						break;
+					case '+':
+						break;
+					case '-':
+						break;
+					case '[':
+						break;
+					case ']':
+						break;
+					case '.':
+						break;
+					case ',':
+						break;
+					default:
+						System.out.println("Illegal character found at position : " + i);
+						System.out.println("Exitting. . . ");
+						System.exit(-1);
+						break;
+				}
+			}
+		}
+	}
 }
+
+
+
 
 public class interpreter extends errorcheck{
 	
@@ -26,9 +92,13 @@ public class interpreter extends errorcheck{
 	int no_of_cells;	//no of cells in memory
 	private static Scanner in = new Scanner(System.in);	//input stream
 	
+	
+	
+	
 	//member functions
 	interpreter(){
 		//default constructor		
+		super();	//calling parent class constructor
 		ptr = 0;	//the pointer is set to point to the first cell
 		no_of_cells = 30000;
 		this.init();	//clears the cells
@@ -36,6 +106,7 @@ public class interpreter extends errorcheck{
 	
 	interpreter(int length){
 		//param constructor
+		super();	//calling parent class constructor
 		ptr = 0;	//the pointer is set to point to the first cell
 		no_of_cells = length;
 		this.init();	//clears the cells
