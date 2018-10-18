@@ -1,7 +1,24 @@
 import java.util.*;
 import java.lang.*;
 
-public class interpreter {
+class errorcheck{
+	//this class handles checking of syntax errors in the code
+	
+	public void loopcheck(String code){
+		//this function checks if the loops are opened and closed correctly
+		//it will display and error and exit if the loops aren't balanced
+		
+		int l=0;	//no of active loops
+		//l must be 0 at the start and end of the code
+		//if l dips below zero or is non zero at the end of the code, loops are unbalanced
+		
+		
+		
+	}
+	
+}
+
+public class interpreter extends errorcheck{
 	
 	//data members
 	byte cells[];	//30k cells, which can hold 127 ASCII values
@@ -108,11 +125,13 @@ public class interpreter {
 		
 		}//end of for loop
 		
-		//displaying the contents of the memory
+		//displaying the first 10 of the memory
+		System.out.println();
 		for(int j=0;j<10;j++) {
 			System.out.print(cells[j]+"\t");
 		}
 		System.out.println();
+	
 	}
 	
 	public static void main(String args[]){
