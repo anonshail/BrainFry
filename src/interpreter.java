@@ -1,6 +1,8 @@
 import java.util.*;
 import java.lang.*;
 
+
+
 class errorcheck{
 	//this class handles checking of syntax errors in the code
 	
@@ -91,26 +93,29 @@ public class interpreter extends errorcheck{
 	int ptr;	//this variable holds the current active cell
 	int no_of_cells;	//no of cells in memory
 	private static Scanner in = new Scanner(System.in);	//input stream
-	
-	
+	int inp[];
+	int inpptr=0;
+	String fop;
 	
 	
 	//member functions
-	interpreter(){
+	interpreter(int input1[]){
 		//default constructor		
 		super();	//calling parent class constructor
 		ptr = 0;	//the pointer is set to point to the first cell
 		no_of_cells = 30000;
 		this.init();	//clears the cells
+		inp = input1;
+		fop="";
 	}
 	
-	interpreter(int length){
+	/*interpreter(int length){
 		//param constructor
 		super();	//calling parent class constructor
 		ptr = 0;	//the pointer is set to point to the first cell
 		no_of_cells = length;
 		this.init();	//clears the cells
-	}
+	}*/
 	
 	public void init() {
 		//this function initializes the cells and sets them all back to zero
@@ -161,12 +166,12 @@ public class interpreter extends errorcheck{
 		
 			//if the char is '.', it'll display the ASCII char at the current cell
 			else if(code.charAt(i)=='.'){
-				System.out.print((char)(cells[ptr]));
+				fop = fop + (char)(cells[ptr]);
 			}
 			
 			//if the char is ',', an ASCII char is taken as an input, and stored in the current cell
 			else if(code.charAt(i)==','){
-				cells[ptr] = (byte)(in.next().charAt(0));
+				cells[ptr] = (byte)(inp[inpptr++]);
 			} 
 		
 			else if(code.charAt(i) == '[') {
@@ -194,22 +199,17 @@ public class interpreter extends errorcheck{
             //if another char is inputted, the interpreter simply ignores it
 			//this means that you can write comments, leave blanks spaces without breaking the code
 		
-		}//end of for loop
-		
-		//displaying the first 10 of the memory
-		System.out.println();
-		for(int j=0;j<10;j++) {
-			System.out.print(cells[j]+"\t");
-		}
-		System.out.println();
-	
+		}//end of for loop	
 	}
 	
 	public static void main(String args[]){
-		interpreter i = new interpreter();
+		interpreter i = new interpreter(new int[10]);
 		System.out.println("Enter the brainfuck code: ");
 		String code = in.next();
 		i.interpret(code);
+		System.out.println(i.fop);
 		System.out.println("Exitting. . . ");
 	}
 }
+
+
